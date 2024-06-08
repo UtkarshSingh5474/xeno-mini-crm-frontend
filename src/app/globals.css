@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.custom-bg {
+  background-color: #0F62FE;
+}
+
+.custom-hover:hover {
+  background-color: #0F62FE;
+}
+
+.custom-focus:focus {
+  background-color: #0F62FE;
+}

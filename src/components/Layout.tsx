@@ -10,10 +10,8 @@ import { usePathname } from 'next/navigation';
 const Layout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const isLoginPage = pathname === '/';
-
-  if (!isLoginPage) {
-    useAuth(); // Only apply auth check if not on the login page
-  }
+  
+  useAuth(); // Call useAuth unconditionally
 
   return (
     <div className="flex bg-blue-50 min-h-screen">

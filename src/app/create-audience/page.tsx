@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createAudience } from '../../utils/api';
+import { createAudience , checkAudienceSize} from '../../utils/api';
 
 interface Rule {
   field: string;
@@ -40,17 +40,16 @@ export default function CreateAudience() {
   const router = useRouter();
 
   useEffect(() => {
-    const checkAudienceSize = async () => {
-      const response = await fetch('http://localhost:5000/api/audiences/size', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(audience),
-      });
-      const data = await response.json();
-      setAudienceSize(data.size);
+    const fetchAudienceSize = async () => {
+      try {
+        const size = await checkAudienceSize(audience);
+        setAudienceSize(size);
+      } catch (error) {
+        console.error('Failed to check audience size:', error);
+      }
     };
 
-    checkAudienceSize();
+    fetchAudienceSize();
   }, [audience]);
 
   const addRule = () => {

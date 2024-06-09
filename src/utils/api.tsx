@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_LOCAL_BACKEND_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_PROD_BACKEND_API_URL || 'http://localhost:5000/api';
 
 export const fetchCampaigns = async () => {
   try {

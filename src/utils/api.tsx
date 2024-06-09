@@ -16,19 +16,24 @@ export const fetchCampaigns = async () => {
 
 export const createAudience = async (audience: object) => {
   try {
+    console.log('audienceJson:', JSON.stringify(audience));
     const response = await fetch(`${API_URL}/campaigns`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(audience),
     });
     if (!response.ok) {
-      throw new Error('Failed to create audience');
+      throw new Error('Failed to create audience'+ response.statusText);
     }
     return await response.json();
   } catch (error) {
-    console.error('Error creating audience:', error);
-    throw error;
+    //don't throw if SyntaxError
+    if (error instanceof SyntaxError) {
+      return;
   }
+    console.error('Error creating audience:', error);
+    throw error;}
+
 };
 
 export const checkAudienceSize = async (audience: object) => {

@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL || 'http://localhost:5000';
+const API_URL = process.env.NEXT_PUBLIC_LOCAL_BACKEND_API_URL || 'http://localhost:5000/api';
 
 export const fetchCampaigns = async () => {
   try {
@@ -14,9 +14,8 @@ export const fetchCampaigns = async () => {
   }
 };
 
-export const createAudience = async (audience: object) => {
+export const createCampaign = async (audience: object) => {
   try {
-    console.log('audienceJson:', JSON.stringify(audience));
     const response = await fetch(`${API_URL}/campaigns`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -1,6 +1,8 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { motion } from "framer-motion";
+import { menuItems } from './MenuItems';
+
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -22,48 +24,6 @@ const variantItem = {
   },
 };
 
-const menuItems = [
-  {
-    name: "Past Campaigns",
-    href: "/campaigns",
-    svg: (
-      <svg
-        aria-hidden="true"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        className="h-6 w-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-        />
-      </svg>
-    ),
-  },
-  {
-    name: "Create Campaign",
-    href: "/create-audience",
-    svg: (
-      <svg
-        aria-hidden="true"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        className="h-6 w-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-        />
-      </svg>
-    ),
-  },
-];
 
 const MenuItem = ({ item }:any) => {
   const router = useRouter();

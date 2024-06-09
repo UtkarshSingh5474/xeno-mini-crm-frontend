@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createAudience , checkAudienceSize} from '../../utils/api';
+import { createCampaign , checkAudienceSize} from '../../utils/api';
 
 interface Rule {
   field: string;
@@ -82,18 +82,18 @@ export default function CreateAudience() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await createAudience(audience);
-      alert('Audience created successfully');
+      await createCampaign(audience);
+      alert('Campaign created successfully');
       router.push('/campaigns');
     } catch (error) {
-      console.error('Error creating audience:', error);
-      alert('Failed to create audience');
+      console.error('Error creating campaign:', error);
+      alert('Failed to create campaign');
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen">
-      <h1 className="text-4xl font-bold mb-8 text-gray-800">Create Audience</h1>
+      <h1 className="text-4xl font-bold mb-8 text-gray-800">Create Campaign</h1>
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 shadow-lg rounded-lg">
         <div className="space-y-4">
           <div>
@@ -120,7 +120,7 @@ export default function CreateAudience() {
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-800">Rules</h2>
+          <h2 className="text-2xl font-semibold text-gray-800">Add Campaign Audience Rules</h2>
           {audience.rules.length === 0 ? (
             <div className="p-4 bg-blue-100 text-blue-700 rounded-lg border border-blue-500">
               <p>All customers will be included if no rules are added.</p>

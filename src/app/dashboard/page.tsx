@@ -1,17 +1,17 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { auth } from '../../utils/firebase';
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { auth } from "../../utils/firebase";
 
 const Dashboard: React.FC = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
-        router.push('/');
+        router.push("/");
       } else {
         setLoading(false);
       }
@@ -25,7 +25,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center ">
-      <h1 className="text-4xl font-bold mb-8 text-gray-800">Welcome to Mini CRM</h1>
+      <h1 className="text-4xl font-bold mb-8 text-gray-800">
+        Welcome to Mini CRM
+      </h1>
       <div className="flex flex-col space-y-4">
         <Link href="/campaigns" legacyBehavior>
           <a className="flex items-center justify-center w-64 px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all">

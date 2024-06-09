@@ -1,11 +1,9 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { auth, User } from '../utils/firebase';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { menuItems } from './MenuItems';
-
-
+"use client";
+import React, { useEffect, useState } from "react";
+import { auth, User } from "../utils/firebase";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { menuItems } from "./MenuItems";
 
 const NavBar = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -21,7 +19,7 @@ const NavBar = () => {
 
   const signOut = () => {
     auth.signOut();
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -47,18 +45,23 @@ const NavBar = () => {
         </svg>
       </button>
       <div className="inline-flex items-center p-2 px-2 bg-xenoBlue bg-opacity-10 focus:bg-gray-100 rounded-lg">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">Xeno Mini CRM</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">
+          Xeno Mini CRM
+        </h1>
       </div>
       <div className="flex flex-shrink-0 items-center ml-auto">
         <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
           <span className="sr-only">User Menu</span>
           <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
-            <span className="font-semibold">{user?.displayName || 'User'}</span>
+            <span className="font-semibold">{user?.displayName || "User"}</span>
             <span className="text-sm text-gray-600">Admin</span>
           </div>
           <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
             <img
-              src={user?.photoURL || 'https://www.floresdevida.org/wp-content/uploads/2018/06/default-user-thumbnail-1.png'}
+              src={
+                user?.photoURL ||
+                "https://www.floresdevida.org/wp-content/uploads/2018/06/default-user-thumbnail-1.png"
+              }
               alt="user profile photo"
               className="h-full w-full object-cover"
             />

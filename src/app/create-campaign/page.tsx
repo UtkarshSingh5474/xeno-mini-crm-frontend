@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { createCampaign , checkAudienceSize} from '../../utils/api';
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { createCampaign, checkAudienceSize } from "../../utils/api";
+import { toast } from "react-toastify";
 
 interface Rule {
   field: string;
   operator: string;
   value: string;
-  condition: string; // AND/OR
+  condition: string;
 }
 
 interface Audience {
@@ -18,24 +19,26 @@ interface Audience {
 }
 
 const availableFields = [
-  { label: 'Total Spends', value: 'total_spends' },
-  { label: 'Visits', value: 'visits' },
-  { label: 'Last Visit', value: 'last_visit' },
-  // Add other fields as needed
+  { label: "Total Spends", value: "total_spends" },
+  { label: "Visits", value: "visits" },
+  { label: "Last Visit", value: "last_visit" },
 ];
 
 const operators = [
-  { label: 'Equals', value: '=' },
-  { label: 'Not Equals', value: '!=' },
-  { label: 'Greater Than', value: '>' },
-  { label: 'Less Than', value: '<' },
-  { label: 'Greater or Equals', value: '>=' },
-  { label: 'Less or Equals', value: '<=' },
-  // Add other operators as needed
+  { label: "Equals", value: "=" },
+  { label: "Not Equals", value: "!=" },
+  { label: "Greater Than", value: ">" },
+  { label: "Less Than", value: "<" },
+  { label: "Greater or Equals", value: ">=" },
+  { label: "Less or Equals", value: "<=" },
 ];
 
 export default function CreateAudience() {
-  const [audience, setAudience] = useState<Audience>({ campaignName: '', campaignMessage: '', rules: [] });
+  const [audience, setAudience] = useState<Audience>({
+    campaignName: "",
+    campaignMessage: "",
+    rules: [],
+  });
   const [audienceSize, setAudienceSize] = useState<number | null>(null);
   const router = useRouter();
 
@@ -45,7 +48,7 @@ export default function CreateAudience() {
         const size = await checkAudienceSize(audience);
         setAudienceSize(size);
       } catch (error) {
-        console.error('Failed to check audience size:', error);
+        console.error("Failed to check audience size:", error);
       }
     };
 
@@ -55,7 +58,15 @@ export default function CreateAudience() {
   const addRule = () => {
     setAudience({
       ...audience,
-      rules: [...audience.rules, { field: availableFields[0].value, operator: operators[0].value, value: '', condition: 'AND' }],
+      rules: [
+        ...audience.rules,
+        {
+          field: availableFields[0].value,
+          operator: operators[0].value,
+          value: "",
+          condition: "AND",
+        },
+      ],
     });
   };
 
@@ -65,11 +76,13 @@ export default function CreateAudience() {
     setAudience({ ...audience, rules });
   };
 
-  const handleChange = (index: number, field: string) => (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const rules = [...audience.rules];
-    rules[index] = { ...rules[index], [field]: e.target.value };
-    setAudience({ ...audience, rules });
-  };
+  const handleChange =
+    (index: number, field: string) =>
+    (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const rules = [...audience.rules];
+      rules[index] = { ...rules[index], [field]: e.target.value };
+      setAudience({ ...audience, rules });
+    };
 
   const handleCampaignNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAudience({ ...audience, campaignName: e.target.value });
@@ -83,21 +96,29 @@ export default function CreateAudience() {
     e.preventDefault();
     try {
       await createCampaign(audience);
-      alert('Campaign created successfully');
-      router.push('/campaigns');
+      toast.success("Campaign created successfully");
+      router.push("/campaigns");
     } catch (error) {
-      console.error('Error creating campaign:', error);
-      alert('Failed to create campaign');
+      console.error("Error creating campaign:", error);
+      toast.error("Failed to create campaign");
     }
   };
 
   return (
     <div className="container mx-auto">
       <h1 className="text-4xl font-bold mb-8 text-gray-800">Create Campaign</h1>
-      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 shadow-lg rounded-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 bg-white p-8 shadow-lg rounded-lg"
+      >
         <div className="space-y-4">
           <div>
-            <label htmlFor="campaignName" className="block text-gray-700 font-semibold mb-2">Campaign Name</label>
+            <label
+              htmlFor="campaignName"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Campaign Name
+            </label>
             <input
               type="text"
               id="campaignName"
@@ -108,7 +129,12 @@ export default function CreateAudience() {
             />
           </div>
           <div>
-            <label htmlFor="campaignMessage" className="block text-gray-700 font-semibold mb-2">Campaign Message</label>
+            <label
+              htmlFor="campaignMessage"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Campaign Message
+            </label>
             <input
               type="text"
               id="campaignMessage"
@@ -120,7 +146,9 @@ export default function CreateAudience() {
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-800">Add Campaign Audience Rules</h2>
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Add Campaign Audience Rules
+          </h2>
           {audience.rules.length === 0 ? (
             <div className="p-4 bg-blue-100 text-blue-700 rounded-lg border border-blue-500">
               <p>All customers will be included if no rules are added.</p>
@@ -130,7 +158,7 @@ export default function CreateAudience() {
               <div key={index} className="flex space-x-4 items-center">
                 <select
                   value={rule.field}
-                  onChange={handleChange(index, 'field')}
+                  onChange={handleChange(index, "field")}
                   className="flex-1 p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {availableFields.map((field) => (
@@ -141,7 +169,7 @@ export default function CreateAudience() {
                 </select>
                 <select
                   value={rule.operator}
-                  onChange={handleChange(index, 'operator')}
+                  onChange={handleChange(index, "operator")}
                   className="flex-1 p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {operators.map((operator) => (
@@ -150,11 +178,11 @@ export default function CreateAudience() {
                     </option>
                   ))}
                 </select>
-                {rule.field === 'last_visit' ? (
+                {rule.field === "last_visit" ? (
                   <input
                     type="date"
                     value={rule.value}
-                    onChange={handleChange(index, 'value')}
+                    onChange={handleChange(index, "value")}
                     className="flex-1 p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 ) : (
@@ -162,14 +190,14 @@ export default function CreateAudience() {
                     type="text"
                     placeholder="Value"
                     value={rule.value}
-                    onChange={handleChange(index, 'value')}
+                    onChange={handleChange(index, "value")}
                     className="flex-1 p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 )}
                 {index > 0 && (
                   <select
                     value={rule.condition}
-                    onChange={handleChange(index, 'condition')}
+                    onChange={handleChange(index, "condition")}
                     className="flex-1 p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="AND">AND</option>
@@ -200,7 +228,11 @@ export default function CreateAudience() {
             ))
           )}
           <div className="flex space-x-4">
-            <button type="button" onClick={addRule} className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 transition-all flex items-center">
+            <button
+              type="button"
+              onClick={addRule}
+              className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 transition-all flex items-center"
+            >
               <svg
                 aria-hidden="true"
                 fill="none"
@@ -220,7 +252,10 @@ export default function CreateAudience() {
           </div>
         </div>
         <div className="flex justify-between items-center mt-6">
-          <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-all flex items-center">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-all flex items-center"
+          >
             <svg
               aria-hidden="true"
               fill="none"
@@ -238,7 +273,10 @@ export default function CreateAudience() {
             Send Campaign
           </button>
           <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-            <p className="text-lg font-semibold text-gray-800">Audience Size: {audienceSize !== null ? audienceSize : 'Calculating...'}</p>
+            <p className="text-lg font-semibold text-gray-800">
+              Audience Size:{" "}
+              {audienceSize !== null ? audienceSize : "Calculating..."}
+            </p>
           </div>
         </div>
       </form>

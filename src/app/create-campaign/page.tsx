@@ -92,7 +92,7 @@ export default function CreateAudience() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-screen">
+    <div className="container mx-auto">
       <h1 className="text-4xl font-bold mb-8 text-gray-800">Create Campaign</h1>
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 shadow-lg rounded-lg">
         <div className="space-y-4">

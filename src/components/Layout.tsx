@@ -11,14 +11,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const isLoginPage = pathname === '/';
   
-  useAuth(); // Call useAuth unconditionally
+  useAuth();
 
   return (
     <div className="flex bg-blue-50 min-h-screen">
       {!isLoginPage && <Sidebar />}
       <div className="flex-grow text-gray-800">
         {!isLoginPage && <NavBar />}
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto flex-grow px-8 py-8">
           {children}
         </main>
       </div>

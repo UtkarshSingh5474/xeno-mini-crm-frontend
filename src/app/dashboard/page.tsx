@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 ">
+    <div className="flex flex-col items-center justify-center ">
       <h1 className="text-4xl font-bold mb-8 text-gray-800">Welcome to Mini CRM</h1>
       <div className="flex flex-col space-y-4">
         <Link href="/campaigns" legacyBehavior>
@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
             View Campaigns
           </a>
         </Link>
-        <Link href="/create-audience" legacyBehavior>
+        <Link href="/create-campaign" legacyBehavior>
           <a className="flex items-center justify-center w-64 px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition-all">
             <svg
               aria-hidden="true"
@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-            Create Audience
+            Create Campaign
           </a>
         </Link>
       </div>

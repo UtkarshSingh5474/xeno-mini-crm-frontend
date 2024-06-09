@@ -46,7 +46,7 @@ const NavBar = () => {
           />
         </svg>
       </button>
-      <div className="relative w-full max-w-md sm:-ml-2 flex items-center">
+      <div className="inline-flex items-center p-2 px-2 bg-gray-100 focus:bg-gray-100 rounded-lg">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">Xeno Mini CRM</h1>
       </div>
       <div className="flex flex-shrink-0 items-center ml-auto">

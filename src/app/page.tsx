@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const signInWithGoogle = async () => {
     try {
       await googleProvider();
-      router.push("/campaigns");
+      router.push("/dashboard");
     } catch (error) {
       console.error("Error signing in with Google:", error);
     }

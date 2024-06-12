@@ -1,4 +1,3 @@
-// utils/useAuth.ts
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

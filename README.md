@@ -51,3 +51,18 @@ Check out the live demo [here](https://xeno-mini-crm-frontend-production.up.rail
     ```
 
 2. Open your browser and navigate to `http://localhost:3000`.
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`NEXT_PUBLIC_FIREBASE_API_KEY`
+`NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+`NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+`NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+`NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
+`NEXT_PUBLIC_FIREBASE_APP_ID`
+`NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`
+`NEXT_PUBLIC_PROD_BACKEND_API_URL`
+`NEXT_PUBLIC_LOCAL_BACKEND_API_URL`
+
